@@ -10,6 +10,7 @@ ArrayList<Quake> quakes = new ArrayList<Quake>();
 Time time;
 PFont tfont;
 boolean tick = true;
+boolean gui = true;
 
 void setup(){
   fullScreen(OPENGL);
@@ -35,10 +36,10 @@ void setup(){
   cp5.addButton("CHANGE TYPE").setPosition(15,50).setSize(100, 30);
   cp5.addButton("TOGGLE").setPosition(15,85).setSize(100, 30);
   cp5.addSlider("DOT SPACE").setPosition(15,120).setRange(4,12).setValue(8);
-  cp5.addSlider("TIME").setPosition(735,50).setSize(500,20).setRange(1,525600).setValue(1).setSliderMode(Slider.FLEXIBLE);
-  cp5.addSlider("SPEED").setPosition(1030,75).setSize(205,10).setRange(0.1,100).setValue(10).setSliderMode(Slider.FLEXIBLE);
-  cp5.addButton("START").setPosition(1030,90).setSize(100, 30);
-  cp5.addButton("STOP").setPosition(1135,90).setSize(100, 30);
+  cp5.addSlider("TIME").setPosition(935,50).setSize(500,20).setRange(1,525600).setValue(1).setSliderMode(Slider.FLEXIBLE);
+  cp5.addSlider("SPEED").setPosition(1230,75).setSize(205,10).setRange(0.1,100).setValue(10).setSliderMode(Slider.FLEXIBLE);
+  cp5.addButton("START").setPosition(1230,90).setSize(100, 30);
+  cp5.addButton("STOP").setPosition(1335,90).setSize(100, 30);
   cp5.setAutoDraw(false);
   
   time = new Time();
@@ -47,7 +48,8 @@ void setup(){
 void draw(){
   background(0);
   globe.draw();
-  gui();
+  if(gui) gui();
+  time.setup(getTime());
   handleTransform();
   checkMouseOver();
   
@@ -57,14 +59,25 @@ void draw(){
   //saveFrame("tif/j####.tif");
 }
 
+void keyPressed() {
+  switch (key) {
+    case 'g':
+      if(gui){
+        gui = false; 
+      }else{
+        gui = true;
+      }
+      break;
+  }
+}
+
 void gui() {
   hint(DISABLE_DEPTH_TEST);
   cam.beginHUD();
   cp5.draw();
-  time.setup(getTime());
   textFont(tfont);
   DecimalFormat df = new DecimalFormat("00");
-  text("2011 " + df.format(time.month) + "/" + df.format(time.day) + " " + df.format(time.hour) + ":" + df.format(time.minute) + " UST" /*"Dec 26 16:57:36 JST"*/,735,40);
+  text("2011 " + df.format(time.month) + "/" + df.format(time.day) + " " + df.format(time.hour) + ":" + df.format(time.minute) + " UST" /*"Dec 26 16:57:36 JST"*/,935,40);
   cam.endHUD();
   hint(ENABLE_DEPTH_TEST);
 }
