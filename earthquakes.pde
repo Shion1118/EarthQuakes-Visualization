@@ -12,7 +12,8 @@ PFont tfont;
 boolean tick = true;
 
 void setup(){
-  size(1280, 900, OPENGL);
+  fullScreen(OPENGL);
+  pixelDensity(displayDensity());
   smooth();
   colorMode(HSB);
   frameRate(30);
@@ -29,7 +30,7 @@ void setup(){
   loadCsv("query.csv");
   
   cp5 = new ControlP5(this);
-  cp5.setFont(new ControlFont(createFont("Arial",10)));
+  cp5.setFont(new ControlFont(createFont("Arial",5)));
   cp5.addButton("CAMERA RESET").setPosition(15,15).setSize(100, 30);
   cp5.addButton("CHANGE TYPE").setPosition(15,50).setSize(100, 30);
   cp5.addButton("TOGGLE").setPosition(15,85).setSize(100, 30);
